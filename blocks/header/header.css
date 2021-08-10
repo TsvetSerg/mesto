@@ -1,0 +1,7 @@
+.header {
+  /* border: white solid 1px; */
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100% - (200px * 2));
+  margin-left: 200px;
+}
