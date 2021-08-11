@@ -12,11 +12,14 @@
   <div class="popup">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <input class="popup__form" type="text" name="name" placeholder="Жак-Ив Кусто">
-      <div class="popup__line"></div>
-      <input class="popup__form" type="text" name="" placeholder="Исследователь океана">
-      <div class="popup__line"></div>
-      <button class="popup__button">Сохранить</button>
+      <form class="popup__form">
+        <input class="popup__form-name" type="text" value="Жак-Ив Кусто">
+        <div class="popup__line"></div>
+        <input class="popup__form-job" type="text" value="Исследователь океана">
+        <div class="popup__line"></div>
+        <button class="popup__button" type="submit">Сохранить</button>
+        <img src="./image/Close-Icon.png" alt="Закрыть" class="popup__close-button">
+      </form>
     </div>
   </div>
 
@@ -29,10 +32,10 @@
     <section class="profile">
       <img class="profile__avatar" src="./image/Jack-if.png" alt="Аватар">
       <div class="profile__profile-info">
-        <h1 class="profile__title">Жак-Ив Кусто </h1>
-        <p class="profile__subtitle">Исследователь океана</p>
+        <h1 class="profile__name" id="">Жак-Ив Кусто </h1>
+        <p class="profile__job">Исследователь океана</p>
       </div>
-      <button class="profile__edit-button"></button>
+      <img class="profile__edit-button" src="./image/edit-button.png" alt="Кнопка редоктирования">
       <div class="profile__add-button">
         <img class="profile__add-plus" src="./image/plus.png" alt="">
     </div>

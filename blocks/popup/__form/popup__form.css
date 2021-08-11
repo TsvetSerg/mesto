@@ -1,9 +1,7 @@
 .popup__form {
   appearance: none;
   border: none;
-  width: 358px;
-  height: 27px;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

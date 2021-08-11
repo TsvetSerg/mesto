@@ -1,8 +1,6 @@
 .profile__edit-button {
   appearance: none;
   border: none;
-  /* background-image: url(../../../image/edit-button.png); */
-  object-fit: cover;
   width: 24px;
   height: 24px;
   margin-left: 18px;
