@@ -5,8 +5,22 @@
   height: 24px;
   margin-left: 18px;
   margin-right: 200px;
+  padding-top: 35px;
 }
 
 .profile__edit-button:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 897px) {
+  .profile__edit-button {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+  }
 }

@@ -2,6 +2,19 @@
   /* border: white solid 1px; */
   display: flex;
   flex-direction: column;
-  max-width: calc(100% - (200px * 2));
-  margin-left: 200px;
+  width: calc(100% - (200px * 2));
+  align-self: stretch;
+  margin: auto;
+}
+
+@media screen and (max-width: 897px) {
+  .header {
+    max-width: 560px;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .header {
+   width: 100%;
+  }
 }

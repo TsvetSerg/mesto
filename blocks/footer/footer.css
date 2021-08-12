@@ -1,5 +1,20 @@
 .footer {
-  margin-left: 200px;
+  /* border: white solid 1px; */
+  width: calc(100% - (200px * 2));
+  margin: auto;
   margin-top: 67px;
   margin-bottom: 60px;
+  align-self: flex-start;
+}
+
+@media screen and (max-width: 897px) {
+  .footer {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+@media screen and (max-width: 610px) {
+  .footer {
+    width: calc(100% - (19px * 2));
+  }
 }

@@ -6,3 +6,18 @@
   font-size: 18px;
   line-height: 22px;
 }
+
+@media screen and (max-width: 897px) {
+  .profile__job {
+    margin-top: 14px;
+    margin-bottom: 36px;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .profile__job {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+}
