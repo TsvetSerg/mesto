@@ -2,7 +2,7 @@
   appearance: none;
   border: none;
   width: 358px;
-  height: 27px;
+  min-height: 27px;
   margin: 0;
   padding: 0;
   margin-bottom: 13px;
