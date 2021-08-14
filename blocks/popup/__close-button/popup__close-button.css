@@ -1,7 +1,10 @@
 .popup__close-button {
-  position: relative;
-  bottom: 430px;
-  left: 240px;
+  /* appearance: none;  Это нужно здесь???*/
+  border: 0;
+  background: transparent;
+  position: absolute;
+  top: -43px;
+  right: -48px;
 }
 
 .popup__close-button:hover {
@@ -10,9 +13,7 @@
 
 @media screen and (max-width: 897px) {
   .popup__close-button {
-    bottom: 380px;
-    left: 130px;
-    max-width: 22px;
-    max-height: 22px;
+    top: -41px;
+    right: -7px;
   }
 }

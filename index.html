@@ -4,97 +4,86 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="page">
 
-  <div class="popup">
-    <div class="popup__container">
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form">
-        <input class="popup__form-name" type="text" value="Жак-Ив Кусто">
-        <div class="popup__line"></div>
-        <input class="popup__form-job" type="text" value="Исследователь океана">
-        <div class="popup__line"></div>
-        <button class="popup__button" type="submit">Сохранить</button>
-        <img src="./image/Close-Icon.png" alt="Закрыть" class="popup__close-button">
-      </form>
-    </div>
-  </div>
-
   <header class="header">
-    <img class="header__logo" src="./image/logo.png" alt="Лого">
-    <div class="header__line"></div>
+    <img class="header__logo" src="./images/logo1.svg" alt="Лого">
   </header>
 
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="./image/Jack-if.png" alt="Аватар">
+      <img class="profile__avatar" src="./images/jack-if.png" alt="Аватар">
       <div class="profile__profile-info">
         <div>
-        <h1 class="profile__name" id="">Жак-Ив Кусто </h1>
-        <p class="profile__job">Исследователь океана</p>
+          <h1 class="profile__name">Жак-Ив Кусто </h1> <!-- Я выидел эту ошибку id но забыл ее испрвить сразу))))) -->
+          <p class="profile__job">Исследователь океана</p>
         </div>
-        <img class="profile__edit-button" src="./image/edit-button.png" alt="Кнопка редоктирования">
+        <button type="button" class="profile__edit-button">
+          <img src="./images/edit-btn.svg" alt="Кнопка редоктирования">
+        </button>
       </div>
 
-      <div class="profile__add-button">
-        <img class="profile__add-plus" src="./image/plus.png" alt="Кнопка Добавления">
-    </div>
+      <button class="profile__add-button" type="button">
+        <img class="profile__add-plus" src="./images/add-btn.svg" alt="Кнопка Добавления">
+    </button>
     </section>
 
     <section class="elements">
       <article class="element">
-        <img class="element__image" src="./image/karachaevsk.png" alt="Замок">
+        <img class="element__image" src="./images/karachaevsk.png" alt="Замок">
         <div class="element__rectangle">
           <h2 class="element__title">Карачаевск</h2>
-          <img class="element__like" src="./image/like.png" alt="лайк">
+          <button class="element__like" type="button">
+            <img src="./images/like-btn.svg" alt="лайк">
+          </button>
         </div>
       </article>
 
 
       <article class="element">
-        <img class="element__image" src="./image/elbrus.png" alt="Равнины">
+        <img class="element__image" src="./images/elbrus.png" alt="Равнины">
         <div class="element__rectangle">
           <h2 class="element__title">Гора Эльбрус</h2>
-          <img class="element__like" src="./image/like.png" alt="Лайк">
+          <img class="element__like" src="./images/like-btn.svg" alt="Лайк">
         </div>
       </article>
 
 
       <article class="element">
-        <img class="element__image" src="./image/dombai.png" alt="Горы">
+        <img class="element__image" src="./images/dombai.png" alt="Горы">
         <div class="element__rectangle">
           <h2 class="element__title">Домбай</h2>
-          <img class="element__like" src="./image/like.png" alt="Лайк">
+          <img class="element__like" src="./images/like-btn.svg" alt="Лайк">
         </div>
       </article>
 
 
       <article class="element">
-        <img class="element__image" src="./image/elbrus.png" alt="Эльбрус">
+        <img class="element__image" src="./images/elbrus.png" alt="Эльбрус">
         <div class="element__rectangle">
           <h2 class="element__title">Гора Эльбрус</h2>
-          <img class="element__like" src="./image/like.png" alt="Лайк">
+          <img class="element__like" src="./images/like-btn.svg" alt="Лайк">
         </div>
       </article>
 
 
       <article class="element">
-        <img class="element__image" src="./image/dombai.png" alt="Домбаи">
+        <img class="element__image" src="./images/dombai.png" alt="Домбаи">
         <div class="element__rectangle">
           <h2 class="element__title">Домбай</h2>
-          <img class="element__like" src="./image/like.png" alt="Лайк">
+          <img class="element__like" src="./images/like-btn.svg" alt="Лайк">
         </div>
       </article>
 
 
       <article class="element">
-        <img class="element__image" src="./image/karachaevsk.png" alt="Карачаевск">
+        <img class="element__image" src="./images/karachaevsk.png" alt="Карачаевск">
         <div class="element__rectangle">
           <h2 class="element__title">Карачаево-Черкесия</h2>
-          <img class="element__like" src="./image/like.png" alt="Лайк">
+          <img class="element__like" src="./images/like-btn.svg" alt="Лайк">
         </div>
       </article>
 
@@ -103,8 +92,23 @@
   </main>
 
   <footer class="footer">
-    <p class="footer__title">© 2020 Mesto Russia</p>
+    <p class="footer__title">	&copy; 2020 Mesto Russia</p>
   </footer>
+
+  <div class="popup">
+    <div class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__form" name="pop"> <!-- Значение в атрибуте должэно быть какое то?(какое?) или можно оставить пустые :" "? -->
+        <input class="popup__input popup__input_name" type="text" name="" required placeholder="Имя">
+        <input class="popup__input popup__input_job" type="text" name="" required placeholder="Работа">
+        <button class="popup__button" type="submit">Сохранить</button>
+      </form>
+      <button type="button" class="popup__close-button">
+        <img class="popup__image" src="./images/close-btn.svg" alt="Закрыть">
+      </button>
+    </div>
+  </div>
+
   <script src="./script/script.js"></script>
 </body>
 </html>
