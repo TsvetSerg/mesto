@@ -23,7 +23,7 @@
     font-size: 14px;
     line-height: 17px;
     text-align: center;
-    max-width: 200px;
+    max-width: 180px; /* проверил по файлу index.html в 3х браузерах, скрола не обнаружил */
     margin-left: 60px;
     margin-top: 7px;
     margin-bottom: 32px;
