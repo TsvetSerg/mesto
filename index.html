@@ -18,7 +18,7 @@
       <img class="profile__avatar" src="./images/jack-if.png" alt="Аватар">
       <div class="profile__profile-info">
         <div>
-          <h1 class="profile__name">Жак-Ив Кусто </h1> <!-- Я выидел эту ошибку id но забыл ее испрвить сразу))))) -->
+          <h1 class="profile__name">Жак-Ив Кусто </h1>
           <p class="profile__job">Исследователь океана</p>
         </div>
         <button type="button" class="profile__edit-button">
@@ -108,7 +108,7 @@
   <div class="popup">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="pop"> <!-- Значение в атрибуте должэно быть какое то?(какое?) или можно оставить пустые :" "? -->
+      <form class="popup__form" name="pop">
         <input class="popup__input popup__input_type_name" type="text" name="inputName" required placeholder="Имя">
         <input class="popup__input popup__input_type_job" type="text" name="inputJob" required placeholder="Работа">
         <button class="popup__button" type="submit">Сохранить</button>
@@ -118,6 +118,35 @@
       </button>
     </div>
   </div>
+
+  <div class="popup" id="popup-card">
+    <div class="popup__container">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" name="pop">
+        <input class="popup__input element__input_type_title" type="text" name="inputTitle" required placeholder="Название">
+        <input class="popup__input element__input_type_img" type="text" name="inputImg" required placeholder="Ссылка на картинку">
+        <button class="popup__button" type="submit">Создать</button>
+      </form>
+      <button type="button" class="popup__close-button">
+        <img class="popup__image" src="./images/close-btn.svg" alt="Закрыть">
+      </button>
+    </div>
+  </div>
+
+
+
+  <template id="cardBlock">
+    <div class="element">
+      <img class="element__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" alt="">
+      <div class="element__rectangle">
+        <h2 class="element__title" ></h2>
+        <button class="element__like" type="button">
+          <img src="./images/like-btn.svg" alt="лайк">
+        </button>
+      </div>
+    </div>
+  </template>
+
 
   <script src="./script/script.js"></script>
 </body>
