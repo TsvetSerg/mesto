@@ -1,5 +1,5 @@
 .element__like_active {
-    background-image: url(/images/like-btn-activ.svg);
+    background-image: url(../../../images/like-btn-activ.svg);
     margin-left: auto;
     margin-right: 15px;
     width: 22px;
