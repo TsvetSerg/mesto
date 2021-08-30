@@ -2,7 +2,7 @@
 // popup ---------------------------------------------------------------
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
-const modalPopupImg = document.querySelector('.popup__card');
+const modalPopupImg = document.querySelector('.popup-card');
 
 
 // button ---------------------------------------------------------------
@@ -10,7 +10,7 @@ const editButton = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 const closeProfileButton = popupEdit.querySelector('.popup__close-button');
 const closeAddButton = popupAdd.querySelector('.popup__close-button')
-const closeimageButton = modalPopupImg.querySelector('.popup__close-button_card')
+const closeimageButton = modalPopupImg.querySelector('.popup__close-card')
 
 
 
@@ -101,8 +101,8 @@ function openAddPopup() {
 
 function cardSubmitHandler (evt) {
   evt.preventDefault();
-  const inputCardTitle = cardFormPopup.querySelector('.element__input_type_title');
-  const inputCardImg = cardFormPopup.querySelector('.element__input_type_img');
+  const inputCardTitle = cardFormPopup.querySelector('.element__input_type-title');
+  const inputCardImg = cardFormPopup.querySelector('.element__input_type-img');
 
   createCard(inputCardTitle.value, inputCardImg.value)
   closePopup(popupAdd);
