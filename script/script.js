@@ -101,8 +101,8 @@ function openAddPopup() {
 
 function cardSubmitHandler (evt) {
   evt.preventDefault();
-  const inputCardTitle = cardFormPopup.querySelector('.element__input_type-title');
-  const inputCardImg = cardFormPopup.querySelector('.element__input_type-img');
+  const inputCardTitle = cardFormPopup.querySelector('.popup__input_image_name');
+  const inputCardImg = cardFormPopup.querySelector('.popup__input_link');
 
   createCard(inputCardTitle.value, inputCardImg.value)
   closePopup(popupAdd);
