@@ -31,72 +31,7 @@
     </button>
     </section>
 
-    <section class="elements">
-      <article class="element">
-        <img class="element__image" src="./images/karachaevsk.png" alt="Замок">
-        <div class="element__rectangle">
-          <h2 class="element__title">Карачаевск</h2>
-          <button class="element__like" type="button">
-            <img src="./images/like-btn.svg" alt="лайк">
-          </button>
-        </div>
-      </article>
-
-
-      <article class="element">
-        <img class="element__image" src="./images/elbrus.png" alt="Равнины">
-        <div class="element__rectangle">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__like" type="button">
-            <img src="./images/like-btn.svg" alt="лайк">
-          </button>
-        </div>
-      </article>
-
-
-      <article class="element">
-        <img class="element__image" src="./images/dombai.png" alt="Горы">
-        <div class="element__rectangle">
-          <h2 class="element__title">Домбай</h2>
-          <button class="element__like" type="button">
-            <img src="./images/like-btn.svg" alt="лайк">
-          </button>
-        </div>
-      </article>
-
-
-      <article class="element">
-        <img class="element__image" src="./images/elbrus.png" alt="Эльбрус">
-        <div class="element__rectangle">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__like" type="button">
-            <img src="./images/like-btn.svg" alt="лайк">
-          </button>
-        </div>
-      </article>
-
-
-      <article class="element">
-        <img class="element__image" src="./images/dombai.png" alt="Домбаи">
-        <div class="element__rectangle">
-          <h2 class="element__title">Домбай</h2>
-          <button class="element__like" type="button">
-            <img src="./images/like-btn.svg" alt="лайк">
-          </button>
-        </div>
-      </article>
-
-
-      <article class="element">
-        <img class="element__image" src="./images/karachaevsk.png" alt="Карачаевск">
-        <div class="element__rectangle">
-          <h2 class="element__title">Карачаево-Черкесия</h2>
-          <button class="element__like" type="button">
-            <img src="./images/like-btn.svg" alt="лайк">
-          </button>
-        </div>
-      </article>
-
+      <section class="elements">
     </section>
 
   </main>
@@ -105,7 +40,7 @@
     <p class="footer__title">	&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup popup-edit">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="pop">
@@ -119,12 +54,12 @@
     </div>
   </div>
 
-  <div class="popup" id="popup-card">
+  <div class="popup popup-add">
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form" name="pop">
         <input class="popup__input element__input_type_title" type="text" name="inputTitle" required placeholder="Название">
-        <input class="popup__input element__input_type_img" type="text" name="inputImg" required placeholder="Ссылка на картинку">
+        <input class="popup__input element__input_type_img" type="src" name="inputImg" required placeholder="Ссылка на картинку">
         <button class="popup__button" type="submit">Создать</button>
       </form>
       <button type="button" class="popup__close-button">
@@ -133,19 +68,29 @@
     </div>
   </div>
 
+  <template class="template-data">
+    <article class="element">
 
-
-  <template id="cardBlock">
-    <div class="element">
-      <img class="element__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" alt="">
-      <div class="element__rectangle">
-        <h2 class="element__title" ></h2>
-        <button class="element__like" type="button">
-          <img src="./images/like-btn.svg" alt="лайк">
-        </button>
-      </div>
-    </div>
+        <div class="element__delete"></div>
+        <img class="element__image" src="$" alt="Картинка карты">
+        <div class="element__rectangle">
+          <h2 class="element__title"></h2>
+          <div class="element__like"></div>
+        </div>
+    </article>
   </template>
+
+  <div class="popup popup__card">
+    <div class="popup__wrapper">
+      <button type="button" class="popup__close-button_card">
+        <img class="popup__image" src="./images/close-btn.svg" alt="Закрыть">
+      </button>
+
+      <div class="popup__container_card">
+        <img class="popup__modal-image" src="" alt="">
+        <h2 class="popup__modal-title"></h2>
+      </div>
+  </div>
 
 
   <script src="./script/script.js"></script>

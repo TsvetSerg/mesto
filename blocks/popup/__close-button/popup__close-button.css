@@ -1,5 +1,4 @@
 .popup__close-button {
-  /* appearance: none;  Это нужно здесь???*/
   border: 0;
   background: transparent;
   position: absolute;
