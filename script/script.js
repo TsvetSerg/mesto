@@ -82,20 +82,26 @@ function createCard(name, link) {
   });
 
   cardImgData.addEventListener('click', () => {
-    modalPopupImg.classList.add('popup_opened');
+    openPopup(modalPopupImg);
     modalPopupTitle.textContent = name;
-    modalPopupImages.src = link;
+    modalPopupImages.src = link;  // не вижу смысла здесь добавлять alt если он отлично добавляется в теле функции.
   });
 
   cardImgData.src = link;
   cardTitleData.textContent = name;
+  cardImgData.alt = name;
 
   list.prepend(elementData);
 
 }
 
-function openAddPopup() {
-  popupAdd.classList.add('popup_opened');
+// function openAddPopup() {
+//   popupAdd.classList.add('popup_opened');
+// };
+
+
+function openPopup(item) {
+  item.classList.add('popup_opened');
 };
 
 
@@ -104,15 +110,10 @@ function cardSubmitHandler (evt) {
   const inputCardTitle = cardFormPopup.querySelector('.popup__input_image_name');
   const inputCardImg = cardFormPopup.querySelector('.popup__input_link');
 
-  createCard(inputCardTitle.value, inputCardImg.value)
+  createCard(inputCardTitle.value, inputCardImg.value);
   closePopup(popupAdd);
-};
+  cardFormPopup.reset();
 
-
-function openEditPopup() {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJobe.textContent;
-  popupEdit.classList.add('popup_opened');
 };
 
 function closePopup(closeBtn) {
@@ -138,7 +139,11 @@ function formSubmitHandler (evt) {
 
 
 
-editButton.addEventListener('click', openEditPopup);
+editButton.addEventListener('click', () => {
+  openPopup(popupEdit);
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJobe.textContent;
+});
 closeProfileButton.addEventListener('click', () => {
   closePopup(popupEdit);
 });
@@ -152,7 +157,9 @@ closeimageButton.addEventListener('click', () => {
 
 
 formElement.addEventListener('submit', formSubmitHandler);
-buttonAdd.addEventListener('click', openAddPopup);
+buttonAdd.addEventListener('click', () => {
+  openPopup(popupAdd);
+});
 cardFormPopup.addEventListener('submit', cardSubmitHandler);
 
 
