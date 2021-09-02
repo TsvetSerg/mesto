@@ -58,7 +58,7 @@ const initialCards = [
 
 
 initialCards.forEach((cardData) => {
-  createCard(cardData.name, cardData.link);
+  addCard(list, createCard(cardData.name, cardData.link));
 });
 
 function createCard(name, link) {
@@ -84,20 +84,24 @@ function createCard(name, link) {
   cardImgData.addEventListener('click', () => {
     openPopup(modalPopupImg);
     modalPopupTitle.textContent = name;
-    modalPopupImages.src = link;  // не вижу смысла здесь добавлять alt если он отлично добавляется в теле функции.
+    modalPopupImages.src = link;
+    modalPopupImages.alt = name; // Ошибку понял, спасибо!!!
   });
 
   cardImgData.src = link;
   cardTitleData.textContent = name;
   cardImgData.alt = name;
 
-  list.prepend(elementData);
-
+  // list.prepend(elementData);
+  return elementData;
 }
 
-// function openAddPopup() {
-//   popupAdd.classList.add('popup_opened');
-// };
+
+function addCard (container, cardElement) {
+  container.prepend(cardElement);
+}
+
+
 
 
 function openPopup(item) {
@@ -110,14 +114,14 @@ function cardSubmitHandler (evt) {
   const inputCardTitle = cardFormPopup.querySelector('.popup__input_image_name');
   const inputCardImg = cardFormPopup.querySelector('.popup__input_link');
 
-  createCard(inputCardTitle.value, inputCardImg.value);
+  addCard(list, createCard(inputCardTitle.value, inputCardImg.value));
   closePopup(popupAdd);
   cardFormPopup.reset();
 
 };
 
-function closePopup(closeBtn) {
-  closeBtn.classList.remove('popup_opened');
+function closePopup(popupItem) {
+  popupItem.classList.remove('popup_opened');
 };
 
 function formSubmitHandler (evt) {
@@ -128,7 +132,7 @@ function formSubmitHandler (evt) {
 };
 
 // document.body.addEventListener('keypress', function(evt) {
-//   if (evt.key === 'Escape') {
+//   if (evt.key == 'Escape') {
 //     console.log('Escape pressed:');
 //   }
 // });

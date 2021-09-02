@@ -10,12 +10,12 @@
   left: 40px;
 }
 
-.popup__close-button_card:hover {
+.popup__close-card:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width: 897px) {
-  .popup__close-button_card {
+  .popup__close-card {
     left: 0;
     max-width: 20px;
     max-height: 20px;
