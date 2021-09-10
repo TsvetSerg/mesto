@@ -58,7 +58,8 @@
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form" name="pop">
-        <input class="popup__input popup__input_image_name" type="text" name="inputTitle" required placeholder="Название">
+        <input id="input-title" class="popup__input popup__input_image_name" type="text" name="inputTitle" required placeholder="Название">
+        <span id="input-title-error"></span>
         <input class="popup__input popup__input_link" type="url" name="inputImg" required placeholder="Ссылка на картинку">
         <button class="popup__button" type="submit">Создать</button>
       </form>
@@ -95,5 +96,6 @@
 
 
   <script src="./script/script.js"></script>
+  <script src="./script/validate.js"></script>
 </body>
 </html>
