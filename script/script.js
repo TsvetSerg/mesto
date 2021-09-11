@@ -154,33 +154,11 @@ buttonAdd.addEventListener('click', () => {
 cardFormPopup.addEventListener('submit', cardSubmitHandler);
 
 
-// ========================= валидация форм
-
-
-// функция проверки валидации
-const isValid = () => {
-  if (!nameInput.validity.valid) {
-    // функция показывающая ошибку(nameInput);
-  } else {
-    // фунция скрывающая ошибку(nameInput)
-  }
-};
-
-
-// функция валидации всех полей
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
-
-// функция изменения стиля кнопки
-const toggleButtonState = (inputList, buttonElement) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__button_inactive');
-  } else {
-    buttonElement.classList.remove('popup__button_inactive');
-  }
-};
-
-
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});

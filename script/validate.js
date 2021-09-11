@@ -13,8 +13,6 @@ const enableValidation = (config) => {
 };
 
 
-
-
 const setEventListeners = (formElement, inputSelector, submitButtonSelector, inputErrorClass, errorClass, inactiveButtonClass) => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -29,20 +27,20 @@ const setEventListeners = (formElement, inputSelector, submitButtonSelector, inp
   });
 
   if (hasNotInputValues(inputList)) {
-    toggleButtonState(formElement, inputList,);
+    toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
   }
 
 };
 
 // функция включения ошибок
-const showInputError = (inputElement, inputErrorClass, errorElement, formElement, errorClass) => {
+const showInputError = (inputElement, inputErrorClass, errorElement, errorClass) => {
 
   inputElement.classList.add(inputErrorClass);
   errorElement.textContent = inputElement.validationMessage;
   errorElement.classList.add(errorClass);
 };
 
-const hideInputError = (inputElement, inputErrorClass, errorElement, formElement, errorClass) => {
+const hideInputError = (inputElement, inputErrorClass, errorElement, errorClass) => {
   inputElement.classList.remove(inputErrorClass);
   errorElement.classList.remove(errorClass);
   errorElement.textContent = '';
@@ -52,12 +50,11 @@ const hideInputError = (inputElement, inputErrorClass, errorElement, formElement
 const checkInputValidation = (inputElement, inputErrorClass, formElement, errorClass) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   if (!inputElement.validity.valid) {
-    showInputError(inputElement, inputErrorClass, errorElement, formElement, errorClass);
+    showInputError(inputElement, inputErrorClass, errorElement, errorClass);
   } else {
-    hideInputError(inputElement, inputErrorClass, errorElement, formElement, errorClass);
+    hideInputError(inputElement, inputErrorClass, errorElement, errorClass);
   }
 };
-
 
 /// функции вкл\выкл кнопки
 const disableSumbitBatton = (buttonElement, inactiveButtonClass) => {
@@ -69,8 +66,8 @@ const enableSumbitBatton = (buttonElement, inactiveButtonClass) => {
 };
 
 const hasNotInputValues = (inputList) => {
-  return !inputList.some((inputElement) => {
-    return inputElement.value.lenght > 0;
+  return inputList.every((inputElement) => {
+    return inputElement.value.lenght === 0;
   });
 };
 
@@ -95,21 +92,3 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
-
-
-
-
-
-
-
-//// time 1:08:28
