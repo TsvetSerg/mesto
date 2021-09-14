@@ -3,7 +3,7 @@
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
 const modalPopupImg = document.querySelector('.popup-card');
-
+const popupAll = document.querySelectorAll('.popup');
 
 // button ---------------------------------------------------------------
 const editButton = document.querySelector('.profile__edit-button');
@@ -73,19 +73,31 @@ function createCard(name, link) {
   const modalPopupTitle = modalPopupImg.querySelector('.popup__modal-title')
   const modalPopupImages = modalPopupImg.querySelector('.popup__modal-image')
 
-  cardLikeData.addEventListener('click', () => {
-    cardLikeData.classList.toggle('element__like_active');
+  // cardLikeData.addEventListener('click', () => {
+  //   cardLikeData.classList.toggle('element__like_active');
+  // });
+
+  elementData.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('element__like')) {
+      evt.target.classList.toggle('element__like_active');
+    }
   });
 
-  cardDeleteData.addEventListener('click', () => {
-    elementData.remove();
+  // cardDeleteData.addEventListener('click', () => {
+  //   elementData.remove();
+  // });
+
+  elementData.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('element__delete')) {
+      elementData.remove();
+    }
   });
 
   cardImgData.addEventListener('click', () => {
     openPopup(modalPopupImg);
     modalPopupTitle.textContent = name;
     modalPopupImages.src = link;
-    modalPopupImages.alt = name; // Ошибку понял, спасибо!!!
+    modalPopupImages.alt = name;
   });
 
   cardImgData.src = link;
@@ -121,8 +133,9 @@ function cardSubmitHandler (evt) {
 };
 
 function closePopup(popupItem) {
-  popupItem.classList.remove('popup_opened');
-};
+    popupItem.classList.remove('popup_opened');
+  };
+
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
@@ -153,6 +166,23 @@ buttonAdd.addEventListener('click', () => {
 });
 cardFormPopup.addEventListener('submit', cardSubmitHandler);
 
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(popupAdd);
+    closePopup(popupEdit);
+    closePopup(modalPopupImg);
+  }
+});
+
+document.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(popupAdd);
+    closePopup(popupEdit);
+    closePopup(modalPopupImg);
+  }
+});
+
+
 
 enableValidation({
   formSelector: '.popup__form',
@@ -162,3 +192,7 @@ enableValidation({
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 });
+
+
+
+

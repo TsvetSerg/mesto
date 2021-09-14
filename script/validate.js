@@ -1,5 +1,5 @@
 const enableValidation = (config) => {
-  const formList = document.querySelectorAll('config.formSelector');
+  const formList = document.querySelectorAll(config.formSelector);
   formList.forEach(formElement => {
     setEventListeners(
       formElement,
@@ -67,7 +67,7 @@ const enableSumbitBatton = (buttonElement, inactiveButtonClass) => {
 
 const hasNotInputValues = (inputList) => {
   return inputList.every((inputElement) => {
-    return inputElement.value.lenght === 0;
+    return inputElement.value.length === 0;
   });
 };
 
