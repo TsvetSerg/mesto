@@ -59,10 +59,13 @@ const checkInputValidation = (inputElement, inputErrorClass, formElement, errorC
 /// функции вкл\выкл кнопки
 const disableSumbitBatton = (buttonElement, inactiveButtonClass) => {
   buttonElement.classList.add(inactiveButtonClass);
+  buttonElement.setAttribute('disabled', 'disabled');
+
 };
 
 const enableSumbitBatton = (buttonElement, inactiveButtonClass) => {
   buttonElement.classList.remove(inactiveButtonClass);
+  buttonElement.removeAttribute('disabled');
 };
 
 const hasNotInputValues = (inputList) => {

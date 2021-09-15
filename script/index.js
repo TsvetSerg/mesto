@@ -73,24 +73,12 @@ function createCard(name, link) {
   const modalPopupTitle = modalPopupImg.querySelector('.popup__modal-title')
   const modalPopupImages = modalPopupImg.querySelector('.popup__modal-image')
 
-  // cardLikeData.addEventListener('click', () => {
-  //   cardLikeData.classList.toggle('element__like_active');
-  // });
-
-  elementData.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('element__like')) {
-      evt.target.classList.toggle('element__like_active');
-    }
+  cardLikeData.addEventListener('click', () => {
+    cardLikeData.classList.toggle('element__like_active');
   });
 
-  // cardDeleteData.addEventListener('click', () => {
-  //   elementData.remove();
-  // });
-
-  elementData.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('element__delete')) {
-      elementData.remove();
-    }
+  cardDeleteData.addEventListener('click', () => {
+    elementData.remove();
   });
 
   cardImgData.addEventListener('click', () => {
@@ -115,11 +103,28 @@ function addCard (container, cardElement) {
 
 
 
-
+// функции открытия и закрития popup
 function openPopup(item) {
   item.classList.add('popup_opened');
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup(item);
+    }
+  });
 };
 
+function closePopup(popupItem) {
+  popupItem.classList.remove('popup_opened');
+  removKeyHandler(popupItem)
+  };
+
+const removKeyHandler = (item) => {
+  document.removeEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup(item);
+    }
+  });
+};
 
 function cardSubmitHandler (evt) {
   evt.preventDefault();
@@ -132,9 +137,6 @@ function cardSubmitHandler (evt) {
 
 };
 
-function closePopup(popupItem) {
-    popupItem.classList.remove('popup_opened');
-  };
 
 
 function formSubmitHandler (evt) {
@@ -166,13 +168,6 @@ buttonAdd.addEventListener('click', () => {
 });
 cardFormPopup.addEventListener('submit', cardSubmitHandler);
 
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    closePopup(popupAdd);
-    closePopup(popupEdit);
-    closePopup(modalPopupImg);
-  }
-});
 
 document.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup')) {
