@@ -106,24 +106,28 @@ function addCard (container, cardElement) {
 // функции открытия и закрития popup
 function openPopup(item) {
   item.classList.add('popup_opened');
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closePopup(item);
-    }
-  });
+  document.addEventListener('keydown', handleEscPress);
+  document.addEventListener('click', handleClickOver);
 };
 
 function closePopup(popupItem) {
   popupItem.classList.remove('popup_opened');
-  removKeyHandler(popupItem)
+  document.removeEventListener('keydown', handleEscPress);
+  document.removeEventListener('click', handleClickOver);
   };
 
-const removKeyHandler = (item) => {
-  document.removeEventListener('keydown', (evt) => {
+
+
+function handleEscPress(evt) {
     if (evt.key === 'Escape') {
-      closePopup(item);
+      closePopup(document.querySelector('.popup_opened'));
     }
-  });
+};
+
+function handleClickOver(evt) {
+  if (evt.target.classList.contains('popup')) {
+  closePopup(document.querySelector('.popup_opened'));
+  }
 };
 
 function cardSubmitHandler (evt) {
@@ -167,16 +171,6 @@ buttonAdd.addEventListener('click', () => {
   openPopup(popupAdd);
 });
 cardFormPopup.addEventListener('submit', cardSubmitHandler);
-
-
-document.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup')) {
-    closePopup(popupAdd);
-    closePopup(popupEdit);
-    closePopup(modalPopupImg);
-  }
-});
-
 
 
 enableValidation({
