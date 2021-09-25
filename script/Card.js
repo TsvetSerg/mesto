@@ -1,7 +1,8 @@
+
 export default class Card {
-  constructor(link, name) {
-    this._link = link
-    this._name = name
+  constructor(data) {
+    this._link = data.link
+    this._name = data.name
   }
 
   _setEventListeners() {
@@ -20,7 +21,7 @@ export default class Card {
     this._element.querySelector('.element__like').classList.toggle('element__like_active');
   }
 
-  _openPopupCard(item) {
+  _openPopupCard() {
     item.classList.add('popup_opened');
     document.querySelector('.popup__modal-title').textContent = this._name;
     document.querySelector('.popup__modal-image').src = this._link;

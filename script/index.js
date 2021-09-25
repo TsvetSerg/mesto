@@ -1,10 +1,10 @@
 import Card from "./Card.js";
+import FormValidator from "./FormValidator.js"
 
 // popup ---------------------------------------------------------------
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
 const modalPopupImg = document.querySelector('.popup-card');
-const popupAll = document.querySelectorAll('.popup');
 
 // button ---------------------------------------------------------------
 const editButton = document.querySelector('.profile__edit-button');
@@ -61,13 +61,13 @@ const initialCards = [
 // проходимся по массиву и создаем новую карточку из класса
 
 initialCards.forEach((item) => {
-  const card = new Card(item.link, item.name)
+  const card = new Card(item)
   const elementData = card.generateCard();
   addCard(list, elementData)
 });
 
-function createCard(link, name) {
-  const cardNew = new Card(link, name);
+function createCard(item) {
+  const cardNew = new Card(item);
   const elementData = cardNew.generateCard();
   return elementData;
 }
@@ -106,7 +106,11 @@ function cardSubmitHandler (evt) {
   const inputCardTitle = cardFormPopup.querySelector('.popup__input_image_name');
   const inputCardImg = cardFormPopup.querySelector('.popup__input_link');
 
-  addCard(list, createCard(inputCardImg.value, inputCardTitle.value));
+
+  addCard(list, createCard({
+    name: inputCardTitle.value,
+    link: inputCardImg.value
+  }));
   closePopup(popupAdd);
   cardFormPopup.reset();
 };
@@ -138,11 +142,25 @@ buttonAdd.addEventListener('click', () => {
 });
 cardFormPopup.addEventListener('submit', cardSubmitHandler);
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+// enableValidation({
+//   formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   submitButtonSelector: '.popup__button',
+//   inactiveButtonClass: 'popup__button_inactive',
+//   inputErrorClass: 'popup__input_type_error',
+//   errorClass: 'popup__error_visible'
+// });
+
+
+const formList = document.querySelectorAll('.popup__form');
+  formList.forEach(formElement => {
+    const valid = new FormValidator(formElement, {
+      inputSelector: '.popup__input',
+      submitButtonSelector: '.popup__button',
+      inactiveButtonClass: 'popup__button_inactive',
+      inputErrorClass: 'popup__input_type_error',
+      errorClass: 'popup__error_visible'
+    })
+
+    valid.enableValidation();
+  });
