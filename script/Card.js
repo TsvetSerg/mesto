@@ -1,3 +1,4 @@
+import {openPopup} from "./utils.js"
 
 export default class Card {
   constructor(data) {
@@ -13,7 +14,7 @@ export default class Card {
       this._element.remove();
     })
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._openPopupCard()
+      this._handleImageClick()
     });
   }
 
@@ -21,11 +22,11 @@ export default class Card {
     this._element.querySelector('.element__like').classList.toggle('element__like_active');
   }
 
-  _openPopupCard() {
-    item.classList.add('popup_opened');
+  _handleImageClick() {         // Метод наполнение и открывания попапа с картинкой
     document.querySelector('.popup__modal-title').textContent = this._name;
     document.querySelector('.popup__modal-image').src = this._link;
     document.querySelector('.popup__modal-image').alt = this._name;
+    openPopup(document.querySelector('.popup-card'));
   }
 
 
