@@ -1,97 +1,105 @@
 export default class FormValidator {
   constructor(formElement, config) {
     this._formElement = formElement
-    this._config = config
+    this._inputSelector = config.inputSelector;
+    this._submitButtonSelector = config.submitButtonSelector;
+    this._inactiveButtonClass = config.inactiveButtonClass;
+    this._inputErrorClass = config.inputErrorClass;
+    this._errorClass = config.errorClass;
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
   };
 
   enableValidation() {
-    this._setEventListeners(
-      this._formElement,
-      this._config.inputSelector,
-      this._config.submitButtonSelector,
-      this._config.inputErrorClass,
-      this._config.errorClass,
-      this._config.inactiveButtonClass);
+    this._setEventListeners();
   };
 
-  _setEventListeners(formElement, inputSelector, submitButtonSelector, inputErrorClass, errorClass, inactiveButtonClass) {
-    formElement.addEventListener('submit', (evt) => {
+  _setEventListeners() {
+    this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
 
-    const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-    inputList.forEach(inputElement => {
+    this._inputList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
-        this._checkInputValidation(inputElement, inputErrorClass, formElement, errorClass);
-        this._toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
+        this._checkInputValidation(inputElement);
+        this._toggleButtonState();
       });
     });
 
-    if (this._hasNotInputValues(inputList)) {
-      this._toggleButtonState(formElement, inputList, submitButtonSelector, inactiveButtonClass);
+    if (this._hasNotInputValues()) {
+      this._toggleButtonState();
     }
 
   };
 
   // функция включения ошибок
-  _showInputError(inputElement, inputErrorClass, errorElement, errorClass) {
-
-    inputElement.classList.add(inputErrorClass);
-    errorElement.textContent = inputElement.validationMessage;
-    errorElement.classList.add(errorClass);
+  _showInputError(inputElement, validationMessage) {
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.add(this._inputErrorClass);
+    errorElement.textContent = validationMessage; ;
+    errorElement.classList.add(this._errorClass);
   };
 
-  _hideInputError (inputElement, inputErrorClass, errorElement, errorClass) {
-    inputElement.classList.remove(inputErrorClass);
-    errorElement.classList.remove(errorClass);
+  _hideInputError (inputElement) {
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.remove(this._inputErrorClass);
     errorElement.textContent = '';
+    errorElement.classList.remove(this._errorClass);
   };
 
   /// функция проверки валид
-  _checkInputValidation (inputElement, inputErrorClass, formElement, errorClass) {
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  _checkInputValidation (inputElement) {
+
     if (!inputElement.validity.valid) {
-      this._showInputError(inputElement, inputErrorClass, errorElement, errorClass);
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
-      this._hideInputError(inputElement, inputErrorClass, errorElement, errorClass);
+      this._hideInputError(inputElement);
     }
   };
 
+  resetValidation = () => {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement)
+    });
+
+  }
+
+
   /// функции вкл\выкл кнопки
-  _disableSumbitBatton (buttonElement, inactiveButtonClass) {
-    buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.setAttribute('disabled', 'disabled');
+  _disableSumbitBatton () {
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+    this._buttonElement.setAttribute('disabled', 'disabled');
 
   };
 
-  _enableSumbitBatton (buttonElement, inactiveButtonClass) {
-    buttonElement.classList.remove(inactiveButtonClass);
-    buttonElement.removeAttribute('disabled');
+  _enableSumbitBatton () {
+    this._buttonElement.classList.remove(this._inactiveButtonClass);
+    this._buttonElement.removeAttribute('disabled');
   };
 
-  _hasNotInputValues (inputList) {
-    return inputList.every((inputElement) => {
+  _hasNotInputValues () {
+    return this._inputList.every((inputElement) => {
       return inputElement.value.length === 0;
     });
   };
 
 
   /// изменение стиля кнопки
-  _toggleButtonState (formElement, inputList, submitButtonSelector, inactiveButtonClass) {
-    const buttonElement = formElement.querySelector(submitButtonSelector);
+  _toggleButtonState () {
+    if (this._hasInvalidInput()) {
 
-    if (this._hasInvalidInput(inputList) || this._hasNotInputValues(inputList)) {
-
-      this._disableSumbitBatton(buttonElement, inactiveButtonClass);
+      this._disableSumbitBatton();
     } else {
-      this._enableSumbitBatton(buttonElement, inactiveButtonClass);
+      this._enableSumbitBatton();
     }
   };
 
   /// функция поиска не валидной строки
 
-  _hasInvalidInput (inputList) {
-    return inputList.some(inputElement => {
+  _hasInvalidInput () {
+    return this._inputList.some(inputElement => {
       return !inputElement.validity.valid;
     });
   };

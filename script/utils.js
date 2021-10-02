@@ -1,3 +1,5 @@
+
+
 // функции открытия и закрития popup
 function openPopup(item) {
   item.classList.add('popup_opened');
@@ -9,6 +11,7 @@ function closePopup(popupItem) {
   popupItem.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleEscPress);
   document.removeEventListener('click', handleClickOver);
+  // popupItem.textContent = ' ';
   };
 
 function handleEscPress(evt) {
@@ -19,8 +22,9 @@ function handleEscPress(evt) {
 
 function handleClickOver(evt) {
   if (evt.target.classList.contains('popup')) {
-  closePopup(document.querySelector('.popup_opened'));
+  closePopup(evt.target);
   }
 };
 
 export {openPopup, closePopup};
+

@@ -1,6 +1,6 @@
 import Card from "./Card.js";
-import FormValidator from "./FormValidator.js"
 import {openPopup, closePopup} from "./utils.js"
+import FormValidator from "./FormValidator.js"
 
 // popup ---------------------------------------------------------------
 const popupEdit = document.querySelector('.popup-edit');
@@ -12,7 +12,7 @@ const editButton = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 const closeProfileButton = popupEdit.querySelector('.popup__close-button');
 const closeAddButton = popupAdd.querySelector('.popup__close-button')
-const closeimageButton = modalPopupImg.querySelector('.popup__close-card')
+const closeimageButton = modalPopupImg.querySelector('.popup__close-button')
 const formElement = popupEdit.querySelector('.popup__form');
 const nameInput = formElement.querySelector('.popup__input_type_name');
 const jobInput = formElement.querySelector('.popup__input_type_job');
@@ -22,7 +22,8 @@ const cardFormPopup = popupAdd.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const profileJobe = document.querySelector('.profile__job');
 const list = document.querySelector('.elements')
-
+const inputCardTitle = cardFormPopup.querySelector('.popup__input_image_name');
+const inputCardImg = cardFormPopup.querySelector('.popup__input_link');
 const initialCards = [
   {
     name: 'Harley-Davidson',
@@ -50,16 +51,31 @@ const initialCards = [
   }
 ];
 
+const validatorFormEditProfile = new FormValidator(popupEdit, {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
+validatorFormEditProfile.enableValidation();
+const validatorFormAddPicture = new FormValidator(popupAdd, {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
+validatorFormAddPicture.enableValidation();
+
 // проходимся по массиву и создаем новую карточку из класса
 
 initialCards.forEach((item) => {
-  const card = new Card(item)
-  const elementData = card.generateCard();
-  addCard(list, elementData)
+  addCard(list, createCard(item))
 });
 
 function createCard(item) {            // функция создания новой карточки
-  const cardNew = new Card(item);
+  const cardNew = new Card(item, '.template-data');
   const elementData = cardNew.generateCard();
   return elementData;
 }
@@ -70,16 +86,13 @@ function addCard (container, cardElement) {   //функция добавлен�
 
 function cardSubmitHandler (evt) {
   evt.preventDefault();
-  const inputCardTitle = cardFormPopup.querySelector('.popup__input_image_name');
-  const inputCardImg = cardFormPopup.querySelector('.popup__input_link');
-
-
   addCard(list, createCard({
     name: inputCardTitle.value,
     link: inputCardImg.value
   }));
+
   closePopup(popupAdd);
-  cardFormPopup.reset();
+  validatorFormAddPicture.resetValidation();
 };
 
 function formSubmitHandler (evt) {
@@ -96,9 +109,12 @@ editButton.addEventListener('click', () => {
 });
 closeProfileButton.addEventListener('click', () => {
   closePopup(popupEdit);
+  validatorFormEditProfile.resetValidation()
 });
 closeAddButton.addEventListener('click', () => {
+
   closePopup(popupAdd);
+  validatorFormAddPicture.resetValidation()
 });
 closeimageButton.addEventListener('click', () => {
   closePopup(modalPopupImg);
@@ -109,15 +125,4 @@ buttonAdd.addEventListener('click', () => {
 });
 cardFormPopup.addEventListener('submit', cardSubmitHandler);
 
-const formList = document.querySelectorAll('.popup__form');
-  formList.forEach(formElement => {
-    const valid = new FormValidator(formElement, {
-      inputSelector: '.popup__input',
-      submitButtonSelector: '.popup__button',
-      inactiveButtonClass: 'popup__button_inactive',
-      inputErrorClass: 'popup__input_type_error',
-      errorClass: 'popup__error_visible'
-    })
 
-    valid.enableValidation();
-  });

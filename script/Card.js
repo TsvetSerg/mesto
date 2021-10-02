@@ -1,14 +1,15 @@
 import {openPopup} from "./utils.js"
 
 export default class Card {
-  constructor(data) {
+  constructor(data, cardSelector) {
     this._link = data.link
     this._name = data.name
+    this.cardSelector = cardSelector
   }
 
   _setEventListeners() {
     this._element.querySelector('.element__like').addEventListener('click', () => {
-      this._cardBottomLike()
+      this._likeCard()
     })
     this._element.querySelector('.element__delete').addEventListener('click', () => {
       this._element.remove();
@@ -18,7 +19,7 @@ export default class Card {
     });
   }
 
-  _cardBottomLike() {
+  _likeCard() {
     this._element.querySelector('.element__like').classList.toggle('element__like_active');
   }
 
@@ -32,7 +33,7 @@ export default class Card {
 
   _getTemplate() {            // метод клонирования template элемента
     const elementData = document
-    .querySelector('.template-data')
+    .querySelector(this.cardSelector)
     .content
     .querySelector('.element')
     .cloneNode(true);
@@ -46,6 +47,7 @@ export default class Card {
 
     this._element.querySelector('.element__image').src = this._link;
     this._element.querySelector('.element__title').textContent = this._name;
+    this._element.querySelector('.element__image').alt = this._name;
 
     return this._element;
   }
