@@ -50,22 +50,17 @@ const initialCards = [
     link: 'https://images.unsplash.com/photo-1569932353500-6ea3302c4116?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=716&q=80'
   }
 ];
+const settings = {   // спасибо, это действительно более красиво и более читабильно)))
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
 
-const validatorFormEditProfile = new FormValidator(popupEdit, {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+const validatorFormEditProfile = new FormValidator(popupEdit, settings);
 validatorFormEditProfile.enableValidation();
-const validatorFormAddPicture = new FormValidator(popupAdd, {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+const validatorFormAddPicture = new FormValidator(popupAdd, settings);
 validatorFormAddPicture.enableValidation();
 
 // проходимся по массиву и создаем новую карточку из класса
@@ -92,6 +87,7 @@ function cardSubmitHandler (evt) {
   }));
 
   closePopup(popupAdd);
+  cardFormPopup.reset();
   validatorFormAddPicture.resetValidation();
 };
 
@@ -99,6 +95,7 @@ function formSubmitHandler (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJobe.textContent = jobInput.value;
+  validatorFormAddPicture.resetValidation();
   closePopup(popupEdit);
 };
 
@@ -108,13 +105,11 @@ editButton.addEventListener('click', () => {
   jobInput.value = profileJobe.textContent;
 });
 closeProfileButton.addEventListener('click', () => {
-  closePopup(popupEdit);
-  validatorFormEditProfile.resetValidation()
+  closePopup(popupEdit);    // тут просто невнимательность) действительно я понимал что валидация при закрытии не нужна, спасибо))
 });
 closeAddButton.addEventListener('click', () => {
 
   closePopup(popupAdd);
-  validatorFormAddPicture.resetValidation()
 });
 closeimageButton.addEventListener('click', () => {
   closePopup(modalPopupImg);
@@ -124,5 +119,7 @@ buttonAdd.addEventListener('click', () => {
   openPopup(popupAdd);
 });
 cardFormPopup.addEventListener('submit', cardSubmitHandler);
+
+// Спасибо большое, вы крутой ревьюер, все по факту и очень хорошо разъяснены ошибки, спасибо!
 
 
