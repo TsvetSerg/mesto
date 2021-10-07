@@ -11,7 +11,6 @@ function closePopup(popupItem) {
   popupItem.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleEscPress);
   document.removeEventListener('click', handleClickOver);
-  // popupItem.textContent = ' ';
   };
 
 function handleEscPress(evt) {

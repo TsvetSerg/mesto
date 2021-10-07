@@ -50,7 +50,7 @@ const initialCards = [
     link: 'https://images.unsplash.com/photo-1569932353500-6ea3302c4116?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=716&q=80'
   }
 ];
-const settings = {   // спасибо, это действительно более красиво и более читабильно)))
+const settings = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_inactive',
@@ -104,22 +104,27 @@ editButton.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJobe.textContent;
 });
+
 closeProfileButton.addEventListener('click', () => {
-  closePopup(popupEdit);    // тут просто невнимательность) действительно я понимал что валидация при закрытии не нужна, спасибо))
+  closePopup(popupEdit);
 });
+
 closeAddButton.addEventListener('click', () => {
 
   closePopup(popupAdd);
 });
+
 closeimageButton.addEventListener('click', () => {
   closePopup(modalPopupImg);
 });
+
 formElement.addEventListener('submit', formSubmitHandler);
+
 buttonAdd.addEventListener('click', () => {
   openPopup(popupAdd);
 });
+
 cardFormPopup.addEventListener('submit', cardSubmitHandler);
 
-// Спасибо большое, вы крутой ревьюер, все по факту и очень хорошо разъяснены ошибки, спасибо!
 
 
