@@ -1,10 +1,11 @@
-import {openPopup} from "./utils.js"
+// import {openPopup} from "./utils.js"
 
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor({data, handlerCardClick}, cardSelector) {
     this._link = data.link
     this._name = data.name
-    this.cardSelector = cardSelector
+    this._cardSelector = cardSelector
+    this._handlerCardClick = handlerCardClick
   }
 
   _setEventListeners() {
@@ -15,7 +16,7 @@ export default class Card {
       this._element.remove();
     })
     this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._handleImageClick()
+      this._handleImageClick();
     });
   }
 
@@ -23,17 +24,22 @@ export default class Card {
     this._element.querySelector('.element__like').classList.toggle('element__like_active');
   }
 
-  _handleImageClick() {         // Метод наполнение и открывания попапа с картинкой
-    document.querySelector('.popup__modal-title').textContent = this._name;
-    document.querySelector('.popup__modal-image').src = this._link;
-    document.querySelector('.popup__modal-image').alt = this._name;
-    openPopup(document.querySelector('.popup-card'));
+  // _handleImageClick() {         // Метод наполнение и открывания попапа с картинкой
+  //   document.querySelector('.popup__modal-title').textContent = this._name;
+  //   document.querySelector('.popup__modal-image').src = this._link;
+  //   document.querySelector('.popup__modal-image').alt = this._name;
+  //   openPopup(document.querySelector('.popup-card'));
+  // }
+  _handleImageClick() {
+    this._handlerCardClick({
+      src: this._element.querySelector('.element__image').src,
+      title: this._element.querySelector('.element__image').title
+    })
   }
-
 
   _getTemplate() {            // метод клонирования template элемента
     const elementData = document
-    .querySelector(this.cardSelector)
+    .querySelector(this._cardSelector)
     .content
     .querySelector('.element')
     .cloneNode(true);

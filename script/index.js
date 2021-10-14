@@ -1,18 +1,23 @@
 import Card from "./Card.js";
 import {openPopup, closePopup} from "./utils.js"
 import FormValidator from "./FormValidator.js"
+import Section from "./Section.js";
+import Popup from "./Popup.js";
+import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
 
 // popup ---------------------------------------------------------------
 const popupEdit = document.querySelector('.popup-edit');
 const popupAdd = document.querySelector('.popup-add');
 const modalPopupImg = document.querySelector('.popup-card');
-
+const imgBig = document.querySelector('.element__image')
 // button ---------------------------------------------------------------
 const editButton = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
-const closeProfileButton = popupEdit.querySelector('.popup__close-button');
-const closeAddButton = popupAdd.querySelector('.popup__close-button')
-const closeimageButton = modalPopupImg.querySelector('.popup__close-button')
+// const closeProfileButton = popupEdit.querySelector('.popup__close-button');
+// const closeAddButton = popupAdd.querySelector('.popup__close-button')
+// const closeimageButton = modalPopupImg.querySelector('.popup__close-button')
 const formElement = popupEdit.querySelector('.popup__form');
 const nameInput = formElement.querySelector('.popup__input_type_name');
 const jobInput = formElement.querySelector('.popup__input_type_job');
@@ -63,68 +68,124 @@ validatorFormEditProfile.enableValidation();
 const validatorFormAddPicture = new FormValidator(popupAdd, settings);
 validatorFormAddPicture.enableValidation();
 
-// проходимся по массиву и создаем новую карточку из класса
 
-initialCards.forEach((item) => {
-  addCard(list, createCard(item))
-});
+const stockCard = new Section({        // Создаем стоковые карточки
+  items: initialCards,
+  renderer: (items) => {stockCard.addItem(createCard(items))}
+  }, '.elements')
+stockCard.renderItems();
+
+const bigImagePopup = new PopupWithImage(modalPopupImg)
 
 function createCard(item) {            // функция создания новой карточки
-  const cardNew = new Card(item, '.template-data');
+  const cardNew = new Card({
+    data: item,
+    handlerCardClick: () => {bigImagePopup.setEventListeners();
+      bigImagePopup.open(item.link, item.name)
+    }
+  }, '.template-data');
   const elementData = cardNew.generateCard();
   return elementData;
 }
 
-function addCard (container, cardElement) {   //функция добавление картоочки
-  container.prepend(cardElement);
+// function renderCard(data) {
+//   const element = createCard(data, '.template-data')
+//   return element;
+// };
+
+
+// function handlerCardClick(link, name) {    // Открываем модалку картинки
+//   new PopupWithImage(modalPopupImg).open(link, name);
+// }
+
+
+// function cardSubmitHandler (evt) {
+//   evt.preventDefault();
+//   addCard(list, createCard({
+//     name: inputCardTitle.value,
+//     link: inputCardImg.value
+//   }));
+
+//   closePopup(popupAdd);
+//   cardFormPopup.reset();
+//   validatorFormAddPicture.resetValidation();
+// };
+
+// function formSubmitHandler (evt) {
+//   evt.preventDefault();
+//   profileName.textContent = nameInput.value;
+//   profileJobe.textContent = jobInput.value;
+//   validatorFormAddPicture.resetValidation();
+//   closePopup(popupEdit);
+// };
+
+//  const profilValue = new UserInfo({
+//     nameSelector: profileName,
+//     jobSelector: profileJobe
+//   });
+//   profilValue.setUserInfo('Жак-Ив Кусто', 'Исследователь океана')
+
+const userInfo = new UserInfo({
+  nameSelector: '.profile__name',
+  jobSelector:'.profile__job'
+})
+
+const popupProfile = new PopupWithForm({
+  selectorPopup: '.popup-edit',
+  submitCallBack: (data) => {
+    userInfo.setUserInfo(data)
+  }
+})
+popupProfile.setEventListeners();
+
+const popupAddCard = new PopupWithImage({
+  selectorPopup: '.popup-add',
+  submitCallBack: ({title, link}) => {
+    const item = {
+      name: title,
+      link: link
+    }
+    stockCard.addItem(createCard(item));
+  }
+})
+popupAddCard.setEventListeners();
+
+
+const handlerPopupAddCard = () => {
+  popupAddCard.open();
 }
 
-function cardSubmitHandler (evt) {
-  evt.preventDefault();
-  addCard(list, createCard({
-    name: inputCardTitle.value,
-    link: inputCardImg.value
-  }));
-
-  closePopup(popupAdd);
-  cardFormPopup.reset();
-  validatorFormAddPicture.resetValidation();
-};
-
-function formSubmitHandler (evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJobe.textContent = jobInput.value;
-  validatorFormAddPicture.resetValidation();
-  closePopup(popupEdit);
-};
-
-editButton.addEventListener('click', () => {
-  openPopup(popupEdit);
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJobe.textContent;
-});
-
-closeProfileButton.addEventListener('click', () => {
-  closePopup(popupEdit);
-});
-
-closeAddButton.addEventListener('click', () => {
-
-  closePopup(popupAdd);
-});
-
-closeimageButton.addEventListener('click', () => {
-  closePopup(modalPopupImg);
-});
-
-formElement.addEventListener('submit', formSubmitHandler);
-
-buttonAdd.addEventListener('click', () => {
-  openPopup(popupAdd);
-});
-
-cardFormPopup.addEventListener('submit', cardSubmitHandler);
+const handlerPopupProfile = () => {
+  const data = userInfo.getUserInfo();
+  nameInput.value = data.name;
+  jobInput.value = data.job;
+  popupProfile.open();
+}
 
 
+editButton.addEventListener('click', handlerPopupProfile);
+buttonAdd.addEventListener('click', handlerPopupAddCard)
+
+
+
+// closeProfileButton.addEventListener('click', () => {
+//   new Popup(popupEdit).close();
+// });
+
+// closeAddButton.addEventListener('click', () => {
+
+//   closePopup(popupAdd);
+// });
+
+// closeimageButton.addEventListener('click', () => {
+//   bigImagePopup.close();
+// });
+
+// formElement.addEventListener('submit', formSubmitHandler);
+
+// buttonAdd.addEventListener('click', () => {
+//   popupAddForm.open()
+// });
+
+// cardFormPopup.addEventListener('submit', cardSubmitHandler);
 
