@@ -4,30 +4,29 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="page">
 
   <header class="header">
-    <img class="header__logo" src="./images/logo1.svg" alt="Лого">
+    <img class="header__logo" src="<%=require('./images/logo1.svg')%>" alt="Лого">
   </header>
 
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="./images/jack-if.png" alt="Аватар">
+      <img class="profile__avatar" src="<%=require('./images/jack-if.png')%>" alt="Аватар">
       <div class="profile__profile-info">
         <div>
           <h1 class="profile__name">Сергей Цветков</h1>
           <p class="profile__job">Создатель данного сайта</p>
         </div>
         <button type="button" class="profile__edit-button">
-          <img src="./images/edit-btn.svg" alt="Кнопка редоктирования">
+          <img src="<%=require('./images/edit-btn.svg')%>" alt="Кнопка редоктирования">
         </button>
       </div>
 
       <button class="profile__add-button" type="button">
-        <img class="profile__add-plus" src="./images/add-btn.svg" alt="Кнопка Добавления">
+        <img class="profile__add-plus" src="<%=require('./images/add-btn.svg')%>" alt="Кнопка Добавления">
     </button>
     </section>
 
@@ -50,8 +49,8 @@
         <span id="input-job-error"></span>
         <button class="popup__button" type="submit">Сохранить</button>
       </form>
-      <button type="button" class="popup__close-button">
-        <img class="popup__image" src="./images/close-btn.svg" alt="Закрыть">
+      <button type="button" class="popup__close-button">./images/close-btn.svg
+        <img class="popup__image" src="<%=require('./images/close-btn.svg')%>" alt="Закрыть">
       </button>
     </div>
   </div>
@@ -67,7 +66,7 @@
         <button class="popup__button" type="submit">Создать</button>
       </form>
       <button type="button" class="popup__close-button">
-        <img class="popup__image" src="./images/close-btn.svg" alt="Закрыть">
+        <img class="popup__image" src="<%=require('./images/close-btn.svg')%>" alt="Закрыть">
       </button>
     </div>
   </div>
@@ -87,7 +86,7 @@
   <div class="popup popup-card">
     <div class="popup__wrapper">
       <button type="button" class="popup__close-card popup__close-button">
-        <img class="popup__image" src="./images/close-btn.svg" alt="Закрыть">
+        <img class="popup__image" src="<%=require('./images/close-btn.svg')%>" alt="Закрыть">
       </button>
 
       <div class="popup__form-card">
