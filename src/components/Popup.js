@@ -22,7 +22,7 @@ export default class Popup {
   }
 
   setEventListeners() {
-    document.addEventListener('click', (evt) => {
+    this._selectorPopup.addEventListener('click', (evt) => {
       if (evt.target.classList.contains('popup')) {
         this.close();
       }

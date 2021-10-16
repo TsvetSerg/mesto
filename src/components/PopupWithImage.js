@@ -3,8 +3,8 @@ import Card from "./Card.js";
 export default class PopupWithImage extends Popup {
   constructor(selectorPopup) {
     super(selectorPopup);
-    this._modalImages = document.querySelector('.popup__modal-image');
-    this._modalTitle = document.querySelector('.popup__modal-title');
+    this._modalImages = this._selectorPopup.querySelector('.popup__modal-image');
+    this._modalTitle = this._selectorPopup.querySelector('.popup__modal-title');
   }
 
   open(src, title) {

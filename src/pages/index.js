@@ -53,12 +53,8 @@ const userInfo = new UserInfo({       // даем вхоодные данные
 
 
 const popupProfile = new PopupWithForm(popupEdit,{   // Создаем экземпляр класса формы проофиля с колбэк функцией
-  submitCallBack: (userInfo) => {
-    const newUser = new UserInfo({
-      profileName: profileName,
-      profileJob: profileJobe
-    })
-    newUser.setUserInfo(userInfo);    // передаем данные нового проофиля в html(открисовываем)
+  submitCallBack: (user) => {
+    userInfo.setUserInfo(user);    // передаем данные нового проофиля в html(открисовываем)
   }
 });
 popupProfile.setEventListeners();
@@ -68,6 +64,7 @@ const handlerPopupProfile = () => {   // функция для использо�
   const  userData = userInfo.getUserInfo();
   nameInput.value = userData.name;
   jobInput.value = userData.job;
+  validatorFormEditProfile.resetValidation();
   popupProfile.open();
 }
 
@@ -77,6 +74,7 @@ const popupAddCard = new PopupWithForm(popupAdd, { // Создаем экзем�
       name: inputCardTitle.value,
       link: inputCardImg.value
     }
+    validatorFormAddPicture.enableValidation()     // естли какие то способы прооверить сколько раз создается это слушатель??
     stockCard.addItem(createCard(item));    // Создаем еще картоочку но данные в нее передем из объекта
   }
 })
@@ -84,7 +82,7 @@ popupAddCard.setEventListeners();
 
 
 const handlerPopupAddCard = () => {         // функция для использоование в лиссенерах и логика действимй
-  validatorFormAddPicture.enableValidation()
+  validatorFormAddPicture.resetValidation();
   popupAddCard.open();
 }
 
