@@ -69,17 +69,16 @@ const handlerPopupProfile = () => {   // функция для использо�
 }
 
 const popupAddCard = new PopupWithForm(popupAdd, { // Создаем экземпляр класса формы добавления карточки с колбэк функцией
-  submitCallBack: () => {
-    const item = {      // Создаем объект из значений инпутов
-      name: inputCardTitle.value,
-      link: inputCardImg.value
+  submitCallBack: (item) => {
+    const add = {
+      name: item.inputTitle,
+      link: item.inputImg
     }
-    validatorFormAddPicture.enableValidation()     // естли какие то способы прооверить сколько раз создается это слушатель??
-    stockCard.addItem(createCard(item));    // Создаем еще картоочку но данные в нее передем из объекта
+    stockCard.addItem(createCard(add));    // Создаем еще картоочку но данные в нее передем из объекта
   }
 })
 popupAddCard.setEventListeners();
-
+// validatorFormAddPicture.enableValidation()     // естли какие то способы прооверить сколько раз создается это слушатель??
 
 const handlerPopupAddCard = () => {         // функция для использоование в лиссенерах и логика действимй
   validatorFormAddPicture.resetValidation();
