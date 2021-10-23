@@ -23,16 +23,26 @@ import {
 import Api from "../components/Api.js";
 
 
-const api = new Api ({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-29/cards/',
-  Headers: {
-    authorization: "dea64c58-8b87-4560-8045-05c229ce594b",
+const api = new Api({                             // записываем стартовый экземпляп
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-29',
+  headers: {
+    authorization: 'dea64c58-8b87-4560-8045-05c229ce594b',
     'Content-Type': 'application/json'
   }
+});
+
+const dataProfile = api.getInfoUser();          // делаем запрос и результат записываем в переменные
+const dataInitialCards = api.getInitialCards();
+
+const dataRequest = [dataProfile, dataInitialCards];    // Формируем массив результатоов
+
+Promise.all([dataRequest])
+.then(() => {
+
 })
-
-
-api.getInfoUser();
+.catch((err) => {
+  console.log(err);
+})
 
 
 
