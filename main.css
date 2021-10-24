@@ -1032,6 +1032,12 @@ template {
 
 .element__liked_num {
  color: black;
+ font-family: Inter;
+ font-style: normal;
+ font-weight: normal;
+ font-size: 13px;
+ line-height: 16px;
+ text-align: center;
 }
 
 
