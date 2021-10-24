@@ -34,24 +34,23 @@ const api = new Api({                             // записываем ста
 const dataProfile = api.getInfoUser();          // делаем запрос и результат записываем в переменные
 const dataInitialCards = api.getInitialCards();
 
-const dataRequest = [dataProfile, dataInitialCards];    // Формируем массив результатоов
 
-Promise.all([dataRequest])
-.then(() => {
-
+Promise.all([dataProfile, dataInitialCards])
+.then((items) => {
+  // userInfo.patchInfoUser(items[0])
+  stockCard.renderItems(items[1])
+  userId = data[0]._id
 })
 .catch((err) => {
   console.log(err);
 })
 
-
+let userId;                             // сюда будем складыватьь ID
 
 
 const stockCard = new Section({        // Создаем стоковые карточки
-  items: initialCards,
   renderer: (items) => {stockCard.addItem(createCard(items))}
   }, '.elements')
-stockCard.renderItems();
 
 
 
