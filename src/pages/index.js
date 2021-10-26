@@ -21,6 +21,7 @@ import {
   settings
 } from "../utils/constant.js"
 import Api from "../components/Api.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js"
 
 
 const api = new Api({                             // записываем стартовый экземпляп
@@ -34,18 +35,17 @@ const api = new Api({                             // записываем ста
 const dataProfile = api.getInfoUser();          // делаем запрос и результат записываем в переменные
 const dataInitialCards = api.getInitialCards();
 
-
-Promise.all([dataProfile, dataInitialCards])
-.then((items) => {
-  // userInfo.patchInfoUser(items[0])
-  stockCard.renderItems(items[1])
-  userId = data[0]._id
-})
-.catch((err) => {
-  console.log(err);
-})
-
 let userId;                             // сюда будем складыватьь ID
+Promise.all([dataProfile, dataInitialCards])
+  .then((items) => {
+    userInfo.setUserInfo({inputName: items[0].name, inputJob: items[0].about})
+    userId = items[0]._id
+    stockCard.renderItems(items[1])
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
 
 
 const stockCard = new Section({        // Создаем стоковые карточки
@@ -58,25 +58,45 @@ function createCard(item) {            // функция создания нов
   const cardNew = new Card({
     data: item,
     handlerCardClick: () => {                       //в данную колбэк функцию передаем что в каждой новой карточке будет лежать попап картинки
-      bigImagePopup.open(item.link, item.name)      // и при любом создании карточки функция будет работаь
+      bigImagePopup.open(item.link, item.name)     // и при любом создании карточки функция будет работаь
+    },
+    cardDeletClick: () => {
+      deletPopup.open(item._id)
     }
-  }, '.template-data');
+  }, '.template-data', userId == item.owner._id);
   const elementData = cardNew.generateCard();
   return elementData;
 }
 
+const deletPopup = new PopupWithConfirmation(popupDel,{
+  submitCallBack: function() {
+      if (this._canDel) {
+        api.deleteCard(this._id);
+        this._element.remove();
+      }}
+})
+
+
 const bigImagePopup = new PopupWithImage(modalPopupImg)
 bigImagePopup.setEventListeners();
 
-const userInfo = new UserInfo({       // даем вхоодные данные
+const userInfo = new UserInfo({      // даем вхоодные данные
   profileName: profileName,
   profileJob: profileJobe
   })
 
 
 const popupProfile = new PopupWithForm(popupEdit,{   // Создаем экземпляр класса формы проофиля с колбэк функцией
-  submitCallBack: (user) => {
-    userInfo.setUserInfo(user);    // передаем данные нового проофиля в html(открисовываем)
+  submitCallBack: (input) => {
+    api.patchInfoUser(input)
+    .then((data) => {
+      userInfo.setUserInfo({inputName: data.name, inputJob: data.about})
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
+    // user.setUserInfo(input);    // передаем данные нового проофиля в html(открисовываем)
   }
 });
 popupProfile.setEventListeners();
@@ -91,16 +111,20 @@ const handlerPopupProfile = () => {   // функция для использо�
 }
 
 const popupAddCard = new PopupWithForm(popupAdd, { // Создаем экземпляр класса формы добавления карточки с колбэк функцией
-  submitCallBack: (item) => {
-    const add = {
-      name: item.inputTitle,
-      link: item.inputImg
+  submitCallBack: (inputValue) => {
+    api.postNewCard(inputValue)
+    .then((data) => {
+      stockCard.addItem(createCard(data))
+    })
+    .catch(err => {
+      console.log(err)
+    })
     }
-    stockCard.addItem(createCard(add));    // Создаем еще картоочку но данные в нее передем из объекта
-  }
-})
-popupAddCard.setEventListeners();
-// validatorFormAddPicture.enableValidation()     // естли какие то способы прооверить сколько раз создается это слушатель??
+    // stockCard.addItem(createCard(add));    // Создаем еще картоочку но данные в нее передем из объекта
+  })
+
+  popupAddCard.setEventListeners();
+
 
 const handlerPopupAddCard = () => {         // функция для использоование в лиссенерах и логика действимй
   validatorFormAddPicture.resetValidation();
@@ -119,3 +143,8 @@ const validatorFormEditProfile = new FormValidator(popupEdit, settings);
 validatorFormEditProfile.enableValidation();
 const validatorFormAddPicture = new FormValidator(popupAdd, settings);
 validatorFormAddPicture.enableValidation();
+
+
+const deletbtn = document.querySelector('.element__delete');
+const popupDel = document.querySelector('.popup-delet')
+s

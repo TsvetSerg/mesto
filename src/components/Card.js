@@ -1,11 +1,16 @@
 // import {openPopup} from "./utils.js"
 
+
+
 export default class Card {
-  constructor({data, handlerCardClick}, cardSelector) {
+  constructor({data, handlerCardClick, cardDeletClick}, cardSelector, canDel) {
     this._link = data.link
     this._name = data.name
     this._cardSelector = cardSelector
     this._handlerCardClick = handlerCardClick
+    this._canDel = canDel
+    this._id = data._id
+    this._cardDeletClick = cardDeletClick
   }
 
   _setEventListeners() {
@@ -13,7 +18,8 @@ export default class Card {
       this._likeCard()
     })
     this._element.querySelector('.element__delete').addEventListener('click', () => {
-      this._element.remove();
+      // this._element.remove();
+      this._cardDeletClick()
     })
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._handleImageClick();
@@ -30,6 +36,7 @@ export default class Card {
       title: this._element.querySelector('.element__image').title
     })
   }
+
 
   _getTemplate() {            // метод клонирования template элемента
     const elementData = document
