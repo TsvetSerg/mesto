@@ -448,13 +448,14 @@ template {
 }
 
 .profile__avatar {
-  min-width: 130px; /* Проверил по разному, больше не сжимается при длинном тексте, и не расширяется при маленьком   */
+  max-width: 130px; /* Проверил по разному, больше не сжимается при длинном тексте, и не расширяется при маленьком   */
   height: 130px;
   border-radius: 50%;
   overflow: hidden;
   margin-right: 30px;
   object-fit: cover;
 }
+
 
 @media screen and (max-width: 897px) {
   .profile__avatar {
@@ -1038,6 +1039,33 @@ template {
  font-size: 13px;
  line-height: 16px;
  text-align: center;
+}
+
+.element_dalete_remove {
+  display: none;
+}
+
+.profile__button_avatar {
+  background-color: transparent;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  transition: .3s;
+  width: 130px;
+  height: 130px;
+}
+
+.profile__button_avatar:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.profile__wrapper {
+  position: relative;
 }
 
 
