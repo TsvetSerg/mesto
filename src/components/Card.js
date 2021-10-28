@@ -3,14 +3,17 @@
 
 
 export default class Card {
-  constructor({data, handlerCardClick, cardDeletClick}, cardSelector, canDel) {
+  constructor({data, handlerCardClick, cardDeletClick}, cardSelector, userId, api) {
     this._link = data.link
     this._name = data.name
     this._cardSelector = cardSelector
     this._handlerCardClick = handlerCardClick
-    this._canDel = canDel
-    this._id = data._id
     this._cardDeletClick = cardDeletClick
+    this._owner = data.owner._id
+    this._id = data._id
+    this._userId = userId
+    this._likes = data.likes
+    this._api = api
   }
 
   _setEventListeners() {
@@ -18,8 +21,7 @@ export default class Card {
       this._likeCard()
     })
     this._element.querySelector('.element__delete').addEventListener('click', () => {
-      // this._element.remove();
-      this._cardDeletClick()
+      this._cardDeletClick(this._element.remove())
     })
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._handleImageClick();
@@ -27,7 +29,19 @@ export default class Card {
   }
 
   _likeCard() {
-    this._element.querySelector('.element__like').classList.toggle('element__like_active');
+    if (this._likeBtn.classList.contains('element__like_active')) {
+      this._api.deleteLikeCard(this._id)
+      .then((res) => {
+        this._likeBtn.classList.remove('element__like_active')
+        this._likeNum.textContent = res.likes.length
+      })
+    } else {
+      this._api.putLikeCard(this._id)
+      .then((res) => {
+        this._likeBtn.classList.add('element__like_active')
+        this._likeNum.textContent = res.likes.length
+      })
+    }
   }
 
   _handleImageClick() {
@@ -55,6 +69,20 @@ export default class Card {
     this._element.querySelector('.element__image').src = this._link;
     this._element.querySelector('.element__title').textContent = this._name;
     this._element.querySelector('.element__image').alt = this._name;
+
+    this._dltBtn = this._element.querySelector('.element__delete');
+    if (!(this._owner === this._userId)) {
+      this._dltBtn.classList.add('element_dalete_remove')
+    }
+
+    this._likeBtn = this._element.querySelector('.element__like');
+    if (this._likes.find(card => this._userId === card._id)) {
+      this._likeBtn.classList.add('element__like_active')
+    }
+
+    this._likeNum = this._element.querySelector('.element__liked_num');
+    this._likeNum.textContent = this._likes.length
+
 
     return this._element;
   }

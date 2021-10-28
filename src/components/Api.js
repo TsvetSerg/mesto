@@ -76,12 +76,12 @@ export default class Api {
     .then(this._checked)
   }
 
-  patchNewAvatar() {
+  patchNewAvatar(user) {
     return fetch(this._url + '/users/me/avatar', {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-       //  avatar: пока не знаю что тут
+       avatar: user
       })
     })
     .then(this._checked)

@@ -14,7 +14,10 @@
 
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./images/jack-if.png')%>" alt="Аватар">
+      <div class="profile__wrapper">
+        <button class="profile__button_avatar" type="button"></button>
+          <img class="profile__avatar" src="<%=require('./images/jack-if.png')%>" alt="Аватар">
+      </div>
       <div class="profile__profile-info">
         <div>
           <h1 class="profile__name">Сергей Цветков</h1>
@@ -74,7 +77,21 @@
   <div class="popup popup-delet">
     <div class="popup__container">
       <h2 class="popup__title">Вы уверены?</h2>
-        <button class="popup__button" type="submit">Да</button>
+        <button class="popup__button" type="button">Да</button>
+      <button type="button" class="popup__close-button">
+        <img class="popup__image" src="#" alt="Закрыть">
+      </button>
+    </div>
+  </div>
+
+  <div class="popup popup-avatar">
+    <div class="popup__container">
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="pop">
+        <input id="input-link-avatar" class="popup__input popup__input_link" type="url" name="avatarInpur" required placeholder="Ссылка на аватар">
+        <span id="input-link-error"></span>
+        <button class="popup__button" type="submit">Сохранить</button>
+      </form>
       <button type="button" class="popup__close-button">
         <img class="popup__image" src="<%=require('./images/close-btn.svg')%>" alt="Закрыть">
       </button>

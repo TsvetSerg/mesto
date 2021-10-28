@@ -10,7 +10,10 @@ import {
   popupAdd,
   modalPopupImg,
   editButton,
+  popupDelet,
+  popupAvatar,
   buttonAdd,
+  avatarButton,
   nameInput,
   jobInput,
   profileName,
@@ -18,6 +21,7 @@ import {
   inputCardTitle,
   inputCardImg,
   initialCards,
+  profilImg,
   settings
 } from "../utils/constant.js"
 import Api from "../components/Api.js";
@@ -38,7 +42,7 @@ const dataInitialCards = api.getInitialCards();
 let userId;                             // сюда будем складыватьь ID
 Promise.all([dataProfile, dataInitialCards])
   .then((items) => {
-    userInfo.setUserInfo({inputName: items[0].name, inputJob: items[0].about})
+    userInfo.setUserInfo({inputName: items[0].name, inputJob: items[0].about, avatarInpur: items[0].avatar})
     userId = items[0]._id
     stockCard.renderItems(items[1])
   })
@@ -63,18 +67,20 @@ function createCard(item) {            // функция создания нов
     cardDeletClick: () => {
       deletPopup.open(item._id)
     }
-  }, '.template-data', userId == item.owner._id);
+  }, '.template-data', userId, api);
   const elementData = cardNew.generateCard();
   return elementData;
 }
 
-const deletPopup = new PopupWithConfirmation(popupDel,{
-  submitCallBack: function() {
-      if (this._canDel) {
-        api.deleteCard(this._id);
-        this._element.remove();
-      }}
+const deletPopup = new PopupWithConfirmation(popupDelet,{
+  submitCallBack: () => {
+    api.deleteCard(deletPopup.id())
+    .then(() => {
+      deletPopup.close()
+    })
+  }
 })
+deletPopup.setEventListeners();
 
 
 const bigImagePopup = new PopupWithImage(modalPopupImg)
@@ -82,7 +88,8 @@ bigImagePopup.setEventListeners();
 
 const userInfo = new UserInfo({      // даем вхоодные данные
   profileName: profileName,
-  profileJob: profileJobe
+  profileJob: profileJobe,
+  profileAvatar: profilImg
   })
 
 
@@ -95,19 +102,34 @@ const popupProfile = new PopupWithForm(popupEdit,{   // Создаем экзе�
     .catch(err => {
       console.log(err)
     })
-
-    // user.setUserInfo(input);    // передаем данные нового проофиля в html(открисовываем)
   }
 });
 popupProfile.setEventListeners();
 
+const popupNewAvatar = new PopupWithForm(popupAvatar, {
+  submitCallBack: (input) => {
+    api.patchNewAvatar(input)
+    .then((data) => {
+      userInfo.setUserInfo({avatarInpur: data.avatar})
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+})
+popupNewAvatar.setEventListeners();
+
+const handlerPopupAvatar = () => {
+  popupNewAvatar.open();
+}
 
 const handlerPopupProfile = () => {   // функция для использоование в лиссенерах и логика действимй
   const  userData = userInfo.getUserInfo();
+  popupProfile.open();
   nameInput.value = userData.name;
   jobInput.value = userData.job;
   validatorFormEditProfile.resetValidation();
-  popupProfile.open();
+
 }
 
 const popupAddCard = new PopupWithForm(popupAdd, { // Создаем экземпляр класса формы добавления карточки с колбэк функцией
@@ -135,7 +157,8 @@ const handlerPopupAddCard = () => {         // функция для испол�
 //========================= EventListeners =========================//
 
 editButton.addEventListener('click', handlerPopupProfile);
-buttonAdd.addEventListener('click', handlerPopupAddCard)
+buttonAdd.addEventListener('click', handlerPopupAddCard);
+avatarButton.addEventListener('click', handlerPopupAvatar)
 
 //=========================== Validation ===========================//
 
@@ -143,8 +166,7 @@ const validatorFormEditProfile = new FormValidator(popupEdit, settings);
 validatorFormEditProfile.enableValidation();
 const validatorFormAddPicture = new FormValidator(popupAdd, settings);
 validatorFormAddPicture.enableValidation();
+const validatorFormAvatarProfile = new FormValidator(popupAvatar, settings);
+validatorFormAvatarProfile.enableValidation()
 
 
-const deletbtn = document.querySelector('.element__delete');
-const popupDel = document.querySelector('.popup-delet')
-s
