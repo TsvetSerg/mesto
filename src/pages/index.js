@@ -167,7 +167,6 @@ const handlerPopupAddCard = () => {         // функция для испол�
 editButton.addEventListener('click', handlerPopupProfile);
 buttonAdd.addEventListener('click', handlerPopupAddCard);
 avatarButton.addEventListener('click', handlerPopupAvatar)
-// deletButton.addEventListener('click', handeleDeletPopup())
 
 
 

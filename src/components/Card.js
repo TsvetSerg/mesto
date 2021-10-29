@@ -1,6 +1,3 @@
-// import {openPopup} from "./utils.js"
-
-
 
 export default class Card {
   constructor({data, handlerCardClick, cardDeletClick}, cardSelector, userId, api, removeCard) {
@@ -48,10 +45,6 @@ export default class Card {
   _removeCard() {
     this._element.remove()
   }
-
-  // _handleDeletClick(id, cardElement) {
-  //   this._cardDeletClick(id, cardElement);
-  // }
 
   _handleImageClick() {
     this._handlerCardClick({
