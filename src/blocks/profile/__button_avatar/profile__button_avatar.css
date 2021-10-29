@@ -1,4 +1,5 @@
 .profile__button_avatar {
+
   background-color: transparent;
   background-position: 50%;
   background-repeat: no-repeat;
@@ -15,4 +16,5 @@
 
 .profile__button_avatar:hover {
   background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(../../../images/avatar-btn.svg);
 }

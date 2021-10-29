@@ -14,6 +14,7 @@ import {
   popupAvatar,
   buttonAdd,
   avatarButton,
+  deletButton,
   nameInput,
   jobInput,
   profileName,
@@ -64,8 +65,8 @@ function createCard(item) {            // функция создания нов
     handlerCardClick: () => {                       //в данную колбэк функцию передаем что в каждой новой карточке будет лежать попап картинки
       bigImagePopup.open(item.link, item.name)     // и при любом создании карточки функция будет работаь
     },
-    cardDeletClick: () => {
-      deletPopup.open(item._id)
+    cardDeletClick: (id, cardElement) => {
+      deletPopup.open(id, cardElement)
     }
   }, '.template-data', userId, api);
   const elementData = cardNew.generateCard();
@@ -73,14 +74,19 @@ function createCard(item) {            // функция создания нов
 }
 
 const deletPopup = new PopupWithConfirmation(popupDelet,{
-  submitCallBack: () => {
-    api.deleteCard(deletPopup.id())
+  submitCallBack: (_id, cardElement) => {
+    api.deleteCard(_id)
     .then(() => {
+      cardElement.remove()
       deletPopup.close()
     })
   }
 })
 deletPopup.setEventListeners();
+
+const handeleDeletPopup = () => {
+  deletPopup.open()
+}
 
 
 const bigImagePopup = new PopupWithImage(modalPopupImg)
@@ -95,9 +101,10 @@ const userInfo = new UserInfo({      // даем вхоодные данные
 
 const popupProfile = new PopupWithForm(popupEdit,{   // Создаем экземпляр класса формы проофиля с колбэк функцией
   submitCallBack: (input) => {
+    popupProfile.loadSubmit()
     api.patchInfoUser(input)
     .then((data) => {
-      userInfo.setUserInfo({inputName: data.name, inputJob: data.about})
+      userInfo.setUserInfo({inputName: data.name, inputJob: data.about, avatarInpur: data.avatar})
     })
     .catch(err => {
       console.log(err)
@@ -108,9 +115,10 @@ popupProfile.setEventListeners();
 
 const popupNewAvatar = new PopupWithForm(popupAvatar, {
   submitCallBack: (input) => {
+    popupNewAvatar.loadSubmit()
     api.patchNewAvatar(input)
     .then((data) => {
-      userInfo.setUserInfo({avatarInpur: data.avatar})
+      userInfo.setUserInfo({inputName: data.name, inputJob: data.about, avatarInpur: data.avatar})
     })
     .catch(err => {
       console.log(err)
@@ -134,6 +142,7 @@ const handlerPopupProfile = () => {   // функция для использо�
 
 const popupAddCard = new PopupWithForm(popupAdd, { // Создаем экземпляр класса формы добавления карточки с колбэк функцией
   submitCallBack: (inputValue) => {
+    popupAddCard.loadSubmit()
     api.postNewCard(inputValue)
     .then((data) => {
       stockCard.addItem(createCard(data))
@@ -142,7 +151,6 @@ const popupAddCard = new PopupWithForm(popupAdd, { // Создаем экзем�
       console.log(err)
     })
     }
-    // stockCard.addItem(createCard(add));    // Создаем еще картоочку но данные в нее передем из объекта
   })
 
   popupAddCard.setEventListeners();
@@ -159,6 +167,9 @@ const handlerPopupAddCard = () => {         // функция для испол�
 editButton.addEventListener('click', handlerPopupProfile);
 buttonAdd.addEventListener('click', handlerPopupAddCard);
 avatarButton.addEventListener('click', handlerPopupAvatar)
+// deletButton.addEventListener('click', handeleDeletPopup())
+
+
 
 //=========================== Validation ===========================//
 

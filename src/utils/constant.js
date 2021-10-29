@@ -16,6 +16,7 @@ export const nameInput = formElement.querySelector('.popup__input_type_name');
 export const jobInput = formElement.querySelector('.popup__input_type_job');
 export const cardFormPopup = popupAdd.querySelector('.popup__form');
 export const avatarButton = document.querySelector('.profile__button_avatar')
+export const deletButton = document.querySelector('.element__delete')
 // DOM ---------------------------------------------------------------
 export const profileName = document.querySelector('.profile__name');
 export const profileJobe = document.querySelector('.profile__job');

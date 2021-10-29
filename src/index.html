@@ -16,7 +16,7 @@
     <section class="profile">
       <div class="profile__wrapper">
         <button class="profile__button_avatar" type="button"></button>
-          <img class="profile__avatar" src="<%=require('./images/jack-if.png')%>" alt="Аватар">
+          <img class="profile__avatar" src="#" alt="Аватар">
       </div>
       <div class="profile__profile-info">
         <div>
@@ -88,8 +88,8 @@
     <div class="popup__container">
       <h2 class="popup__title">Обновить аватар</h2>
       <form class="popup__form" name="pop">
-        <input id="input-link-avatar" class="popup__input popup__input_link" type="url" name="avatarInpur" required placeholder="Ссылка на аватар">
-        <span id="input-link-error"></span>
+        <input id="input-avatar" class="popup__input popup__input_link" type="url" name="avatarInpur" required placeholder="Ссылка на аватар">
+        <span id="input-avatar-error"></span>
         <button class="popup__button" type="submit">Сохранить</button>
       </form>
       <button type="button" class="popup__close-button">
@@ -108,8 +108,10 @@
         <img class="element__image" src="#" alt="">
         <div class="element__rectangle">
           <h2 class="element__title"></h2>
-          <div class="element__like"></div>
-          <p class="element__liked_num">0</p>
+          <div class="element__wrapper">
+            <div class="element__like"></div>
+            <p class="element__liked_num">0</p>
+          </div>
         </div>
     </article>
   </template>
