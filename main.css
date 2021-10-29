@@ -638,9 +638,8 @@ template {
 
 .element__rectangle {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 .element__title {
@@ -661,8 +660,6 @@ template {
 
 .element__like {
   background-image: url(87ed371465c7a6a1cd01.svg);
-  margin-left: auto;
-  margin-right: 15px;
   width: 22px;
   height: 19px;
   cursor: pointer;
@@ -1032,13 +1029,11 @@ template {
 }
 
 .element__liked_num {
- color: black;
- font-family: Inter;
- font-style: normal;
- font-weight: normal;
- font-size: 13px;
- line-height: 16px;
- text-align: center;
+  color: black;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  margin-top: 3px;
 }
 
 .element_dalete_remove {
@@ -1046,6 +1041,7 @@ template {
 }
 
 .profile__button_avatar {
+
   background-color: transparent;
   background-position: 50%;
   background-repeat: no-repeat;
@@ -1062,10 +1058,15 @@ template {
 
 .profile__button_avatar:hover {
   background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(a086f758840ae814ecde.svg);
 }
 
 .profile__wrapper {
   position: relative;
+}
+
+.element__wrapper {
+   margin-right: 25px;
 }
 
 
