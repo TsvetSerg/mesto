@@ -44,6 +44,6 @@
 @import url(../blocks/popup/__error/popup__error_visible.css);
 @import url(../blocks/element/__liked_num/element__liked_num.css);
 @import url(../blocks/element/__delete/__delete_remove/element_dalete_remove.css);
-@import url(../blocks/profile/__button_avatar/profile__button_avatar.css);
+@import url(../blocks/profile/__button/profile__button.css);
 @import url(../blocks/profile/__wrapper/profile__wrapper.css);
 @import url(../blocks/element/__wrapper/element__wrapper.css);
