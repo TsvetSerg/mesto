@@ -12,6 +12,10 @@ export default class PopupWithForm extends Popup {
     this._submitButton.textContent = 'Сохранение...'
   }
 
+  reset() {
+    this._form.reset();
+  }
+
   _getInputValues() {
     this._itemValue = {}; // результат сбора данных = объект
     this._inputs.forEach((input) => {
@@ -24,7 +28,6 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._form.addEventListener('submit', () => {
       this._submitCallBack(this._getInputValues());
-      this.close();
     })
   }
 

@@ -45,6 +45,7 @@ Promise.all([dataProfile, dataInitialCards])
   .then((items) => {
     userInfo.setUserInfo({inputName: items[0].name, inputJob: items[0].about, avatarInpur: items[0].avatar})
     userId = items[0]._id
+    items[1].reverse();
     stockCard.renderItems(items[1])
   })
   .catch((err) => {
@@ -68,7 +69,10 @@ function createCard(item) {            // функция создания нов
     cardDeletClick: (id, cardElement) => {
       deletPopup.open(id, cardElement)
     }
-  }, '.template-data', userId, api);
+  }, '.template-data', userId,
+    (id) => {return api.deleteLikeCard(id)},
+    (id) => {return api.putLikeCard(id)});
+
   const elementData = cardNew.generateCard();
   return elementData;
 }
@@ -77,7 +81,7 @@ const deletPopup = new PopupWithConfirmation(popupDelet,{
   submitCallBack: (_id, cardElement) => {
     api.deleteCard(_id)
     .then(() => {
-      cardElement.remove()
+      cardElement.removeCard()
       deletPopup.close()
     })
   }
@@ -105,6 +109,7 @@ const popupProfile = new PopupWithForm(popupEdit,{   // Создаем экзе�
     api.patchInfoUser(input)
     .then((data) => {
       userInfo.setUserInfo({inputName: data.name, inputJob: data.about, avatarInpur: data.avatar})
+      popupProfile.close();
     })
     .catch(err => {
       console.log(err)
@@ -119,6 +124,7 @@ const popupNewAvatar = new PopupWithForm(popupAvatar, {
     api.patchNewAvatar(input)
     .then((data) => {
       userInfo.setUserInfo({inputName: data.name, inputJob: data.about, avatarInpur: data.avatar})
+      popupNewAvatar.close();
     })
     .catch(err => {
       console.log(err)
@@ -146,18 +152,19 @@ const popupAddCard = new PopupWithForm(popupAdd, { // Создаем экзем�
     api.postNewCard(inputValue)
     .then((data) => {
       stockCard.addItem(createCard(data))
+      popupAddCard.close();
     })
     .catch(err => {
       console.log(err)
     })
     }
   })
-
   popupAddCard.setEventListeners();
 
 
 const handlerPopupAddCard = () => {         // функция для использоование в лиссенерах и логика действимй
   validatorFormAddPicture.resetValidation();
+  popupAddCard.reset();
   popupAddCard.open();
 }
 

@@ -1,6 +1,6 @@
 
 export default class Card {
-  constructor({data, handlerCardClick, cardDeletClick}, cardSelector, userId, api, removeCard) {
+  constructor({data, handlerCardClick, cardDeletClick}, cardSelector, userId, handleDelLike, handlePutLike) {
     this._link = data.link
     this._name = data.name
     this._cardSelector = cardSelector
@@ -10,8 +10,8 @@ export default class Card {
     this._id = data._id
     this._userId = userId
     this._likes = data.likes
-    this._api = api
-    this._removeCard = removeCard
+    this._handleDelLike = handleDelLike
+    this._handlePutLike = handlePutLike
   }
 
   _setEventListeners() {
@@ -19,7 +19,7 @@ export default class Card {
       this._likeCard()
     })
     this._element.querySelector('.element__delete').addEventListener('click', () => {
-      this._cardDeletClick(this._id, this._element)
+      this._cardDeletClick(this._id, this)
     })
     this._element.querySelector('.element__image').addEventListener('click', () => {
       this._handleImageClick();
@@ -28,13 +28,13 @@ export default class Card {
 
   _likeCard() {
     if (this._likeBtn.classList.contains('element__like_active')) {
-      this._api.deleteLikeCard(this._id)
+      this._handleDelLike(this._id)
       .then((res) => {
         this._likeBtn.classList.remove('element__like_active')
         this._likeNum.textContent = res.likes.length
       })
     } else {
-      this._api.putLikeCard(this._id)
+      this._handlePutLike(this._id)
       .then((res) => {
         this._likeBtn.classList.add('element__like_active')
         this._likeNum.textContent = res.likes.length
@@ -42,7 +42,7 @@ export default class Card {
     }
   }
 
-  _removeCard() {
+  removeCard() {
     this._element.remove()
   }
 
