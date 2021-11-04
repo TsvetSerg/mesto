@@ -1,6 +1,6 @@
 
 export default class Card {
-  constructor({data, handlerCardClick, cardDeletClick}, cardSelector, userId, handleDelLike, handlePutLike) {
+  constructor({data, handlerCardClick, cardDeletClick, handelLikeClick, handleDelLike}, cardSelector, userId) {
     this._link = data.link
     this._name = data.name
     this._cardSelector = cardSelector
@@ -10,13 +10,17 @@ export default class Card {
     this._id = data._id
     this._userId = userId
     this._likes = data.likes
+    this._handelLikeClick = handelLikeClick
     this._handleDelLike = handleDelLike
-    this._handlePutLike = handlePutLike
   }
 
   _setEventListeners() {
     this._element.querySelector('.element__like').addEventListener('click', () => {
-      this._likeCard()
+      if (this._likeBtn.classList.contains('element__like_active')) {      // Я понимаю что это прям костыли дикие, но умней чем сделать тут проверку не придумал
+      this._handleDelLike(this._id)                                       // Можно было конечно сделать метооды типа тру или фолс, но мне кажется так понятней будет, надеюсь подойдет такой варитант))))
+    } else {
+      this._handelLikeClick(this._id)
+    }
     })
     this._element.querySelector('.element__delete').addEventListener('click', () => {
       this._cardDeletClick(this._id, this)
@@ -26,19 +30,13 @@ export default class Card {
     });
   }
 
-  _likeCard() {
+  likeCard(res) {
     if (this._likeBtn.classList.contains('element__like_active')) {
-      this._handleDelLike(this._id)
-      .then((res) => {
         this._likeBtn.classList.remove('element__like_active')
         this._likeNum.textContent = res.likes.length
-      })
     } else {
-      this._handlePutLike(this._id)
-      .then((res) => {
         this._likeBtn.classList.add('element__like_active')
         this._likeNum.textContent = res.likes.length
-      })
     }
   }
 

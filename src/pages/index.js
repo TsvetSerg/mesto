@@ -68,10 +68,26 @@ function createCard(item) {            // функция создания нов
     },
     cardDeletClick: (id, cardElement) => {
       deletPopup.open(id, cardElement)
+    },
+    handelLikeClick: (id) => {
+      api.putLikeCard(id)
+        .then((res) => {
+          cardNew.likeCard(res)
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    },
+    handleDelLike: (id) => {
+      api.deleteLikeCard(id)
+      .then((res) => {
+        cardNew.likeCard(res)
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
-  }, '.template-data', userId,
-    (id) => {return api.deleteLikeCard(id)},
-    (id) => {return api.putLikeCard(id)});
+  }, '.template-data', userId)
 
   const elementData = cardNew.generateCard();
   return elementData;
